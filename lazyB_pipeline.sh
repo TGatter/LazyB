@@ -30,11 +30,10 @@ echo "abundance threshold for k-mer filtering: " $ABUNDANCE_THRESHOLD > $OUT/rep
 jellyfish dump -L $ABUNDANCE_THRESHOLD ${TMP}/"jelly_count_k${K_MER_JELLY}.jf" >  ${TMP}/"filtered_kmers_${K_MER_JELLY}_${ABUNDANCE_THRESHOLD}.fa"
 bbduk.sh in1=$ILLUMINA_RAW_1 in2=$ILLUMINA_RAW_2 out1=$TMP/illu_filtered.1.fastq out2=$TMP/illu_filtered.2.fastq ref=${TMP}/"filtered_kmers_${K_MER_JELLY}_${ABUNDANCE_THRESHOLD}.fa" k=$K_MER_JELLY hdist=0
 
-
 echo ">>>> Illumina Assembly"
 
 mkdir -p $OUT/ABYSS   #create folder "ABYSS" for ABYSS results
-abyss-pe -C $OUT/ABYSS np=$CORES name=$NAME k=$K_MER_ABYSS in="${TMP}/illu_filtered.1.fastq ${TMP}/illu_filtered.2.fastq" ${ABYSS_MODE} 2>&1 | tee $OUT/ABYSS/abyss.log
+abyss-pe -C $OUT/ABYSS np=$CORES name=$NAME k=$K_MER_ABYSS in="../../${TMP}/illu_filtered.1.fastq ../../${TMP}/illu_filtered.2.fastq" ${ABYSS_MODE} 2>&1 | tee $OUT/ABYSS/abyss.log
 awk -v min="$MINLENGTH" 'BEGIN {RS = ">" ; ORS = ""} $2 >= min {print ">"$0}' $OUT/ABYSS/"${NAME}-${ABYSS_MODE}.fa"  > $OUT/ABYSS/"${NAME}-${ABYSS_MODE}.l${MINLENGTH}.fa"
 
 
@@ -60,10 +59,10 @@ minimap2  -k15 -DP --dual=yes --no-long-join -w5 -m100 -g10000 -r2000 --max-chai
 echo ">>>> Lazy Bastard"
 
 $SCRIPTPATH/prokrastinator.py $OUT/02_contigs_corrected.to_$BASE.scrubbed.paf $TMP/unitigs_corrected.fa $OUT/02_$BASE.scrubbed.fa $TMP
-
+cp $TMP/temp_1.target.fa $OUT/03.assembly.unpolished.fa
 
 echo ">>>> Racon"
-$SCRIPTPATH/racon_prokrast -u -t $CORES $TMP/temp_1.query.fa $TMP/temp_1.align.paf $TMP/temp_1.target.fa > $OUT/03.assembly.fa
+$SCRIPTPATH/racon_mod -u -t $CORES $TMP/temp_1.query.fa $TMP/temp_1.align.paf $TMP/temp_1.target.fa > $OUT/03.assembly.fa
 
 rm -rf $TMP
 
