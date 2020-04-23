@@ -43,10 +43,7 @@ Parts of the pipeline run on 8 cores. To change the number of available cores, s
 
 Comment out the following line in lazyB\_pipeline.sh to disable the experimental polishing step.
 
-'''
+```
 $SCRIPTPATH/racon_prokrast -u -t $CORES $TMP/temp_1.query.fa $TMP/temp_1.align.paf $TMP/temp_1.target.fa > $OUT/03.assembly.fa
-'''
+```
 
-
-
-# Contact
