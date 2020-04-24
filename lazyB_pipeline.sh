@@ -25,7 +25,7 @@ echo ">>>> K-mer Filtering of Illumina Reads"
 jellyfish count -m $K_MER_JELLY -s 100M -t $CORES -C $ILLUMINA_RAW_1 $ILLUMINA_RAW_2 -o ${TMP}/"jelly_count_k${K_MER_JELLY}.jf"  
 jellyfish histo ${TMP}/"jelly_count_k${K_MER_JELLY}.jf" > ${TMP}/"jelly_histo_k${K_MER_JELLY}.histo"
 TOTAL_NON_UNIQUE_KMERS=$(awk '{if($1 != "1") s += $2} END{print s}' ${TMP}/"jelly_histo_k${K_MER_JELLY}.histo")
-ABUNDANCE_THRESHOLD=75 #$($SCRIPTPATH/setAbundanceThresholdFromHisto.py ${TMP}/"jelly_histo_k${K_MER_JELLY}.histo" $TOTAL_NON_UNIQUE_KMERS)
+ABUNDANCE_THRESHOLD=$($SCRIPTPATH/setAbundanceThresholdFromHisto.py ${TMP}/"jelly_histo_k${K_MER_JELLY}.histo" $TOTAL_NON_UNIQUE_KMERS)
 echo "abundance threshold for k-mer filtering: " $ABUNDANCE_THRESHOLD > $OUT/report.txt
 jellyfish dump -L $ABUNDANCE_THRESHOLD ${TMP}/"jelly_count_k${K_MER_JELLY}.jf" >  ${TMP}/"filtered_kmers_${K_MER_JELLY}_${ABUNDANCE_THRESHOLD}.fa"
 bbduk.sh in1=$ILLUMINA_RAW_1 in2=$ILLUMINA_RAW_2 out1=$TMP/illu_filtered.1.fastq out2=$TMP/illu_filtered.2.fastq ref=${TMP}/"filtered_kmers_${K_MER_JELLY}_${ABUNDANCE_THRESHOLD}.fa" k=$K_MER_JELLY hdist=0
