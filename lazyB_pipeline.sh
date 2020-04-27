@@ -10,11 +10,16 @@ NAME=$3
 ILLUMINA_RAW_1=$4
 ILLUMINA_RAW_2=$5
 NANO=$6
-OUT=$7
+OUT_=$7
 
 CORES=8                     #number of cores can be set manually here
 MINLENGTH=500
 ABYSS_MODE=unitigs
+
+case $OUT_ in
+  /*) OUT=$OUT_;;
+  *) OUT=$PWD/$OUT_;;
+esac
 
 mkdir -p $OUT               #create output folder if it doesn't already exist
 TMP=$(mktemp -d -p $OUT)    #create a temporary folder - deleted in the end
@@ -33,7 +38,7 @@ bbduk.sh in1=$ILLUMINA_RAW_1 in2=$ILLUMINA_RAW_2 out1=$TMP/illu_filtered.1.fastq
 echo ">>>> Illumina Assembly"
 
 mkdir -p $OUT/ABYSS   #create folder "ABYSS" for ABYSS results
-abyss-pe -C $OUT/ABYSS np=$CORES name=$NAME k=$K_MER_ABYSS in="../../${TMP}/illu_filtered.1.fastq ../../${TMP}/illu_filtered.2.fastq" ${ABYSS_MODE} 2>&1 | tee $OUT/ABYSS/abyss.log
+abyss-pe -C $OUT/ABYSS np=$CORES name=$NAME k=$K_MER_ABYSS in="${TMP}/illu_filtered.1.fastq ${TMP}/illu_filtered.2.fastq" ${ABYSS_MODE} 2>&1 | tee $OUT/ABYSS/abyss.log
 awk -v min="$MINLENGTH" 'BEGIN {RS = ">" ; ORS = ""} $2 >= min {print ">"$0}' $OUT/ABYSS/"${NAME}-${ABYSS_MODE}.fa"  > $OUT/ABYSS/"${NAME}-${ABYSS_MODE}.l${MINLENGTH}.fa"
 
 
