@@ -1,5 +1,6 @@
-# Lazy Bastard
+# Lazy B
 
+The Bradypus is a slow but very effective animal.
 
 ## Introduction
 
