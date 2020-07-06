@@ -1,6 +1,8 @@
 # Lazy B
 
-The Bradypus is a slow but very effective animal.
+The Bradypus is a lazy but very effective animal.
+
+<img src="https://github.com/TGatter/LazyB/raw/master/lazy_sloth.png?raw=true" width="350" height="350" title="A cute sloth.">
 
 ## Introduction
 
