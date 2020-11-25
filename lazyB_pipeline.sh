@@ -50,9 +50,8 @@ $SCRIPTPATH/unitig_filter.py $OUT/01_unitigs.to_$BASE.paf $OUT/ABYSS/"${NAME}-${
 
 echo ">>>> Scrubbing"
 
-minimap2 -k15 -DP --dual=yes --no-long-join -w5 -m100 -g10000 -r2000 --max-chain-skip 25 --split-prefix foo $NANO $NANO > $OUT/01_a_$BASE.to_self.paf
-minimap2 -k15 -DP --dual=yes --no-long-join -w5 -m100 -g10000 -r2000 --max-chain-skip 25 --split-prefix foo $NANO $TMP/unitigs_corrected.fa > $OUT/01_b_contigs_corrected.to_$BASE.paf
-$SCRIPTPATH/scrubber.py $OUT/01_a_$BASE.to_self.paf $OUT/01_b_contigs_corrected.to_$BASE.paf $NANO $OUT/02_$BASE.scrubbed.fa
+minimap2 -k15 -DP --dual=yes --no-long-join -w5 -m100 -g10000 -r2000 --max-chain-skip 25 --split-prefix foo $NANO $TMP/unitigs_corrected.fa > $OUT/01_contigs_corrected.to_$BASE.paf
+$SCRIPTPATH/scrubber_bfs.py $OUT/01_contigs_corrected.to_$BASE.paf $NANO $OUT/02_$BASE.scrubbed.fa
 
 
 echo ">>>> Anchor Mapping"
