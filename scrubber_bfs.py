@@ -2,9 +2,6 @@
 
 import networkx as nx
 import sys, os
-from Bio.SeqIO.QualityIO import FastqGeneralIterator
-from Bio.Seq import Seq
-from Bio.Alphabet import generic_dna
 from Bio import SeqIO
 import random
 import time
