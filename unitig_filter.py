@@ -71,7 +71,7 @@ with open(paf_file, 'r') as input_file:
             current_nano_ids.append(nano_id)
 
     mapping_freq[current_id] = [block_counter, current_length, max(current_profile)]  # last block
-print("finished reading input file")
+#print("finished reading input file")
 
 
 ############# define filter cut-off ####################################################################################
