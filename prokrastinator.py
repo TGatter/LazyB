@@ -1021,6 +1021,9 @@ def topological_sort_reduction(G, O):
 
     while True:
 
+        #print "Loop True ==========================="
+
+
         while zero_indegree:
             node = zero_indegree.pop()
 
@@ -1036,9 +1039,24 @@ def topological_sort_reduction(G, O):
                         neighbour.remove(child)
                 else:
                     neighbour.add(child)
+            #G.remove_node(node) DEBUG ONLY
 
         if not indegree_map:
             break # break global loop if no nodes are left
+
+
+        #for edge in G.edges(): 
+          #print edge, G.edges[edge]
+
+        #print "Neighbour", neighbour
+        #print "Indeg", len(indegree_map) 
+        #print "ZeroDeg", len(zero_indegree) 
+ 
+        empty_neighbour = False
+        if len(neighbour) == 0:
+            for s in indegree_map:
+                neighbour.add(s)
+            empty_neighbour = True
 
         min_score = -1;
         v_min = None
@@ -1060,6 +1078,9 @@ def topological_sort_reduction(G, O):
         del indegree_map[v_min]
         zero_indegree.append(v_min)
         neighbour.remove(v_min)
+
+        if empty_neighbour:
+            neighbour.clear()
 
 def find_cluster_weight(dg):
 
