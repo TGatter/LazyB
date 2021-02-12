@@ -8,9 +8,7 @@ The Bradypus is a lazy but very effective animal.
 
 This is a preliminary version of the tool under rapid development.
 
-Economic Genome Assembly from Low Coverage Illumina and Nanopore Data
-Thomas Gatter, Sarah von Löhneysen, Polina Drozdova, Tom Hartmann, Peter F. Stadler
-bioRxiv 2020.02.07.939454; doi: https://doi.org/10.1101/2020.02.07.939454 
+Gatter, Thomas, et al. "Economic genome assembly from low coverage Illumina and Nanopore data." 20th International Workshop on Algorithms in Bioinformatics (WABI 2020). Schloss Dagstuhl-Leibniz-Zentrum für Informatik, 2020.
 
 Please contact us with any issues and suggestions.
 
