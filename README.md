@@ -1,3 +1,6 @@
+# MuCHSALSA
+For an efficient implementation of this prototype please visit: https://github.com/0x002A/MuCHSALSA/
+
 # Lazy B
 
 The Bradypus is a lazy but very effective animal.
